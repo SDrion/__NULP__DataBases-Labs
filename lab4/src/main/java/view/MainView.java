@@ -27,52 +27,61 @@ public class MainView {
         menu.put("11", "11 - Get all stations");
         menu.put("12", "12 - Get station by ID");
         menu.put("13", "13 - Create new station");
-        menu.put("14", "14 - Delete station by ID\n");
+        menu.put("14", "14 - Delete station by ID");
+        menu.put("15", "15 - Update station by ID\n");
 
         menu.put("21", "21 - Get all cars");
         menu.put("22", "22 - Get car by ID");
         menu.put("23", "23 - Create car");
-        menu.put("24", "24 - Delete car by ID\n");
+        menu.put("24", "24 - Delete car by ID");
+        menu.put("25", "25 - Update car by ID\n");
 
         menu.put("31", "31 - Get all rents");
         menu.put("32", "32 - Get rent by ID");
         menu.put("33", "33 - Create rent");
-        menu.put("34", "34 - Delete rent by ID\n");
+        menu.put("34", "34 - Delete rent by ID");
+        menu.put("35", "35 - Update rent by ID\n");
 
         menu.put("41", "41 - Get all users");
         menu.put("42", "42 - Get user by ID");
         menu.put("43", "43 - Create user");
-        menu.put("44", "44 - Delete user by ID\n");
+        menu.put("44", "44 - Delete user by ID");
+        menu.put("45", "45 - Update user by ID\n");
 
         menu.put("51", "51 - Get all fines");
         menu.put("52", "52 - Get fine by ID");
         menu.put("53", "53 - Create fine");
-        menu.put("54", "54 - Delete fine by ID\n");
+        menu.put("54", "54 - Delete fine by ID");
+        menu.put("55", "55 - Update fine by ID");
 
         methodsMenu.put("11", this::getAllStations);
         methodsMenu.put("12", this::getStationById);
         methodsMenu.put("13", this::createStation);
         methodsMenu.put("14", this::deleteStationById);
+        methodsMenu.put("15", this::updateStationById);
 
         methodsMenu.put("21", this::getAllCars);
         methodsMenu.put("22", this::getCarById);
         methodsMenu.put("23", this::createCar);
         methodsMenu.put("24", this::deleteCarById);
+        methodsMenu.put("25", this::updateCarById);
 
         methodsMenu.put("31", this::getAllRents);
         methodsMenu.put("32", this::getRentById);
         methodsMenu.put("33", this::createRent);
         methodsMenu.put("34", this::deleteRentById);
+        methodsMenu.put("35", this::updateRentById);
 
         methodsMenu.put("41", this::getAllUsers);
         methodsMenu.put("42", this::getUserById);
         methodsMenu.put("43", this::createUser);
         methodsMenu.put("44", this::deleteUserById);
+        methodsMenu.put("45", this::updateUserById);
 
         methodsMenu.put("51", this::getAllFines);
         methodsMenu.put("52", this::getFineById);
         methodsMenu.put("53", this::createFine);
-        methodsMenu.put("54", this::deleteFineById);
+        methodsMenu.put("55", this::updateFineById);
     }
 
 
@@ -257,21 +266,143 @@ public class MainView {
 
 
     private void updateStationById() throws SQLException {
-        System.out.println("Enter station id to update: ");
+        System.out.println("Enter station id: ");
         int id = INPUT.nextInt();
         INPUT.nextLine();
-        Station stationToUpd = stationController.getService().getById(id);
-        System.out.println("Enter new name for station: ");
+        Station stationToUpdate = stationController.getService().getById(id);
+
+        System.out.println("Enter station name: ");
         String name = INPUT.nextLine();
+        System.out.println("Enter station address: ");
+        String address = INPUT.nextLine();
+        System.out.println("Enter station city: ");
+        String city = INPUT.nextLine();
+
+        String newName = name.equals("") ? stationToUpdate.getName() : name;
+        String newAddress = address.equals("") ? stationToUpdate.getAddress() : address;
+        String newCity = city.equals("") ? stationToUpdate.getCity() : city;
+
+        Station entity = new Station(id, newName, newAddress, newCity);
+        stationController.update(entity);
+    }
+
+    private void updateCarById() throws SQLException {
+        System.out.println("Enter car id: ");
+        int id = INPUT.nextInt();
+        INPUT.nextLine();
+        Car carToUpdate = carController.getService().getById(id);
+
+        System.out.println("Enter car brand: ");
+        String brand = INPUT.nextLine();
+        System.out.println("Enter car model: ");
+        String model = INPUT.nextLine();
+        System.out.println("Enter car year: ");
+        Integer year = INPUT.nextInt();
+        INPUT.nextLine();
+        System.out.println("Enter car plate number: ");
+        String plateNumber = INPUT.nextLine();
+        System.out.println("Enter car vin number: ");
+        String vinNumber = INPUT.nextLine();
+        System.out.println("Enter car status: ");
+        String status = INPUT.nextLine();
+        System.out.println("Enter station id: ");
+        Integer stationId = INPUT.nextInt();
         INPUT.nextLine();
 
-        String newName = name;
+        String newBrand = brand.equals("") ? carToUpdate.getBrand() : brand;
+        String newModel = model.equals("") ? carToUpdate.getModel() : model;
+        Integer newYear = year < 0 ? carToUpdate.getYear() : year;
+        String newPlateNumber = plateNumber.equals("") ? carToUpdate.getPlate_number() : plateNumber;
+        String newVinNumber = vinNumber.equals("") ? carToUpdate.getVin_number() : vinNumber;
+        String newStatus = status.equals("") ? carToUpdate.getStatus() : status;
+        Integer newStationId = stationId < 0 ? carToUpdate.getStation_id() : stationId;
 
-        if (name.equals("")) newName = stationToUpd.getName();
+        Car entity = new Car(id, newBrand, newModel, newYear, newPlateNumber, newVinNumber, newStatus, newStationId);
+        carController.update(entity);
+    }
 
-        Station ent = new Station(id, newName);
-        TravelClass entity = new TravelClass(id, newName);
-        travelClassController.update(entity);
+    private void updateRentById() throws SQLException {
+        System.out.println("Enter rent id: ");
+        int id = INPUT.nextInt();
+        INPUT.nextLine();
+        Rent rentToUpdate = rentController.getService().getById(id);
+
+        System.out.println("Enter rent price: ");
+        Float price = INPUT.nextFloat();
+        INPUT.nextLine();
+        System.out.println("Enter rent status: ");
+        String status = INPUT.nextLine();
+        System.out.println("Enter car id: ");
+        Integer carId = INPUT.nextInt();
+        System.out.println("Enter user id: ");
+        Integer userId = INPUT.nextInt();
+
+        Float newPrice = price < 0 ? rentToUpdate.getPrice() : price;
+        String newStatus = status.equals("") ? rentToUpdate.getStatus() : status;
+        Integer newCarId = carId < 0 ? rentToUpdate.getCar_id() : carId;
+        Integer newUserId = userId < 0 ? rentToUpdate.getUser_id() : userId;
+
+        Rent entity = new Rent(id, newPrice, newStatus, newCarId, newUserId);
+        rentController.update(entity);
+    }
+
+    private void updateUserById() throws SQLException {
+        System.out.println("Enter user id: ");
+        int id = INPUT.nextInt();
+        INPUT.nextLine();
+        User userToUpdate = userController.getService().getById(id);
+
+        System.out.println("Enter user first name: ");
+        String firstName = INPUT.nextLine();
+        System.out.println("Enter user last name: ");
+        String lastName = INPUT.nextLine();
+        System.out.println("Enter user phone number: ");
+        String phoneNumber = INPUT.nextLine();
+        System.out.println("Enter user email: ");
+        String email = INPUT.nextLine();
+        System.out.println("Enter user passport number: ");
+        String passportNumber = INPUT.nextLine();
+        System.out.println("Enter user drivers license number: ");
+        String dlNumber = INPUT.nextLine();
+        System.out.println("Enter user status: ");
+        String status = INPUT.nextLine();
+        System.out.println("Enter user password: ");
+        String password = INPUT.nextLine();
+
+        String newFirstName = firstName.equals("") ? userToUpdate.getFirst_name() : firstName;
+        String newLastName = lastName.equals("") ? userToUpdate.getLast_name() : lastName;
+        String newPhoneNumber = phoneNumber.equals("") ? userToUpdate.getPhone_number() : phoneNumber;
+        String newEmail = email.equals("") ? userToUpdate.getEmail() : email;
+        String newPasNum = passportNumber.equals("") ? userToUpdate.getPassport_number() : passportNumber;
+        String newDlNumber = dlNumber.equals("") ? userToUpdate.getDrivers_license_number() : dlNumber;
+        String newStatus = status.equals("") ? userToUpdate.getStatus() : status;
+        String newPassword = password.equals("") ? userToUpdate.getPassword() : DigestUtils.sha256Hex(password);;
+
+        User entity = new User(id, newFirstName, newLastName, newPhoneNumber, newEmail, newPasNum,
+                newDlNumber, newStatus, newPassword);
+        userController.update(entity);
+    }
+
+    private void updateFineById() throws SQLException {
+        System.out.println("Enter fine id: ");
+        int id = INPUT.nextInt();
+        INPUT.nextLine();
+        Fine fineToUpdate = fineController.getService().getById(id);
+
+        System.out.println("Enter fine payment due: ");
+        Float paymentDue = INPUT.nextFloat();
+        INPUT.nextLine();
+        System.out.println("Enter fine status: ");
+        String status = INPUT.nextLine();
+        System.out.println("Enter user id: ");
+        Integer userId = INPUT.nextInt();
+
+        Float newPayment = paymentDue < 0 ? fineToUpdate.getPaymant_due() : paymentDue;
+        String newStatus = status.equals("") ? fineToUpdate.getStatus() : status;
+        Integer newUserId = userId < 0 ? fineToUpdate.getUser_id() : userId;
+
+        Fine entity = new Fine(id, newPayment, newStatus, newUserId);
+        fineController.update(entity);
     }
 
     private void outputMenu() {

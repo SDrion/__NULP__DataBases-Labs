@@ -1,7 +1,6 @@
 package DAO.implementation;
 
 import DAO.IGeneralDAO;
-
 import model.implementation.Car;
 import persistance.ConnectionManager;
 
@@ -86,14 +85,14 @@ public class CarDAO implements IGeneralDAO<Car, Integer> {
     public final int update(final Car entity) throws SQLException {
         Connection connection = ConnectionManager.getConnection();
         try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE)) {
-            preparedStatement.setInt(1, entity.getId());
-            preparedStatement.setString(2, entity.getBrand());
-            preparedStatement.setString(3, entity.getModel());
-            preparedStatement.setInt(4, entity.getYear());
-            preparedStatement.setString(5, entity.getPlate_number());
-            preparedStatement.setString(6, entity.getVin_number());
-            preparedStatement.setString(7, entity.getStatus());
-            preparedStatement.setInt(8, entity.getStation_id());
+            preparedStatement.setString(1, entity.getBrand());
+            preparedStatement.setString(2, entity.getModel());
+            preparedStatement.setInt(3, entity.getYear());
+            preparedStatement.setString(4, entity.getPlate_number());
+            preparedStatement.setString(5, entity.getVin_number());
+            preparedStatement.setString(6, entity.getStatus());
+            preparedStatement.setInt(7, entity.getStation_id());
+            preparedStatement.setInt(8, entity.getId());
             return preparedStatement.executeUpdate();
         }
     }

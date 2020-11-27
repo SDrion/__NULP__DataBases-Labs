@@ -14,7 +14,7 @@ public class FineDAO implements IGeneralDAO<Fine, Integer> {
     private static final String CREATE =  "INSERT INTO polotskyi_lab3.fine "
             + "(id, payment_due, status, user_id) VALUES (?, ?, ?, ?)";
     private static final String UPDATE = "UPDATE polotskyi_lab3.fine " +
-            "SET id=?, payment_due=?, status=?, user_id=? WHERE id=?";
+            "SET payment_due=?, status=?, user_id=? WHERE id=?";
     private static final String DELETE = "DELETE FROM polotskyi_lab3.fine WHERE id=?";
 
     @Override
@@ -72,10 +72,10 @@ public class FineDAO implements IGeneralDAO<Fine, Integer> {
     public final int update(final Fine entity) throws SQLException {
         Connection connection = ConnectionManager.getConnection();
         try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE)) {
-            preparedStatement.setInt(1, entity.getId());
-            preparedStatement.setFloat(2, entity.getPaymant_due());
-            preparedStatement.setString(3, entity.getStatus());
-            preparedStatement.setInt(4, entity.getUser_id());
+            preparedStatement.setFloat(1, entity.getPaymant_due());
+            preparedStatement.setString(2, entity.getStatus());
+            preparedStatement.setInt(3, entity.getUser_id());
+            preparedStatement.setInt(4, entity.getId());
             return preparedStatement.executeUpdate();
         }
     }

@@ -14,7 +14,7 @@ public class RentDAO implements IGeneralDAO<Rent, Integer> {
     private static final String CREATE =  "INSERT polotskyi_lab3.rent "
             + "(id, price, status, car_id, user_id) VALUES (?, ?, ?, ?, ?)";
     private static final String UPDATE = "UPDATE polotskyi_lab3.rent " +
-            "SET id=?, price=?, status=?, car_id=?, user_id=? WHERE id=?";
+            "SET price=?, status=?, car_id=?, user_id=? WHERE id=?";
     private static final String DELETE = "DELETE FROM polotskyi_lab3.rent WHERE id=?";
 
     @Override
@@ -75,11 +75,11 @@ public class RentDAO implements IGeneralDAO<Rent, Integer> {
     public final int update(final Rent entity) throws SQLException {
         Connection connection = ConnectionManager.getConnection();
         try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE)) {
-            preparedStatement.setInt(1, entity.getId());
-            preparedStatement.setFloat(2, entity.getPrice());
-            preparedStatement.setString(3, entity.getStatus());
-            preparedStatement.setInt(4, entity.getCar_id());
-            preparedStatement.setInt(5, entity.getUser_id());
+            preparedStatement.setFloat(1, entity.getPrice());
+            preparedStatement.setString(2, entity.getStatus());
+            preparedStatement.setInt(3, entity.getCar_id());
+            preparedStatement.setInt(4, entity.getUser_id());
+            preparedStatement.setInt(5, entity.getId());
             return preparedStatement.executeUpdate();
         }
     }

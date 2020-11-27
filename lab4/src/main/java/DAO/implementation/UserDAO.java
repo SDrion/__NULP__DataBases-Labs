@@ -14,7 +14,7 @@ public class UserDAO implements IGeneralDAO<User, Integer> {
     private static final String CREATE =  "INSERT polotskyi_lab3.user "
             + "(id, first_name, last_name, phone_number, email, passport_number, driver_license_number, status, password_sha256) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String UPDATE = "UPDATE polotskyi_lab3.user " +
-            "SET id=?, first_name=?, last_name=?, phone_number=?, email=?, passport_number=?, drivers_license_number=?, status=?, password=? WHERE id=?";
+            "SET first_name=?, last_name=?, phone_number=?, email=?, passport_number=?, driver_license_number=?, status=?, password_sha256=? WHERE id=?";
     private static final String DELETE = "DELETE FROM polotskyi_lab3.user WHERE id=?";
 
     @Override
@@ -87,15 +87,15 @@ public class UserDAO implements IGeneralDAO<User, Integer> {
     public final int update(final User entity) throws SQLException {
         Connection connection = ConnectionManager.getConnection();
         try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE)) {
-            preparedStatement.setInt(1, entity.getId());
-            preparedStatement.setString(2, entity.getFirst_name());
-            preparedStatement.setString(3, entity.getLast_name());
-            preparedStatement.setString(4, entity.getPhone_number());
-            preparedStatement.setString(5, entity.getEmail());
-            preparedStatement.setString(6, entity.getPassport_number());
-            preparedStatement.setString(7, entity.getDrivers_license_number());
-            preparedStatement.setString(8, entity.getStatus());
-            preparedStatement.setString(9, entity.getPassword());
+            preparedStatement.setString(1, entity.getFirst_name());
+            preparedStatement.setString(2, entity.getLast_name());
+            preparedStatement.setString(3, entity.getPhone_number());
+            preparedStatement.setString(4, entity.getEmail());
+            preparedStatement.setString(5, entity.getPassport_number());
+            preparedStatement.setString(6, entity.getDrivers_license_number());
+            preparedStatement.setString(7, entity.getStatus());
+            preparedStatement.setString(8, entity.getPassword());
+            preparedStatement.setInt(9, entity.getId());
             return preparedStatement.executeUpdate();
         }
     }

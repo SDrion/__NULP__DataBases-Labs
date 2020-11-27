@@ -72,10 +72,10 @@ public class StationDAO implements IGeneralDAO<Station, Integer> {
     public final int update(final Station entity) throws SQLException {
         Connection connection = ConnectionManager.getConnection();
         try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE)) {
-            preparedStatement.setInt(1, entity.getId());
-            preparedStatement.setString(2, entity.getName());
-            preparedStatement.setString(3, entity.getAddress());
-            preparedStatement.setString(4, entity.getCity());
+            preparedStatement.setString(1, entity.getName());
+            preparedStatement.setString(2, entity.getAddress());
+            preparedStatement.setString(3, entity.getCity());
+            preparedStatement.setInt(4, entity.getId());
             return preparedStatement.executeUpdate();
         }
     }
