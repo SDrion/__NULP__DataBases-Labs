@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="connection.url">jdbc:mysql://localhost:3306/polotskyi_lab3</property>
+        <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="connection.username">pol</property>
+        <property name="connection.password">12345678</property>
+        <property name="hibernate.current_session_context_class">thread</property>
+        <property name="hibernate.show_sql">false</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
+
+
+        <mapping class="com.polotskyi.model.entity.Car"/>
+        <mapping class="com.polotskyi.model.entity.Fine"/>
+        <mapping class="com.polotskyi.model.entity.Rent"/>
+        <mapping class="com.polotskyi.model.entity.Station"/>
+        <mapping class="com.polotskyi.model.entity.User"/>
+
+
+        <!-- DB schema will be updated if needed -->
+        <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
+    </session-factory>
+</hibernate-configuration>
